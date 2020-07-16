@@ -1,0 +1,6 @@
+framework module Pods_DocumentMarketplace {
+  umbrella header "Pods-DocumentMarketplace-umbrella.h"
+
+  export *
+  module * { export * }
+}
