@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		790F54BE24C660C900EFF949 /* ListUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F54BD24C660C900EFF949 /* ListUsersViewController.swift */; };
 		7934A93B24AAA66B0014D2F5 /* CreateDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7934A93A24AAA66B0014D2F5 /* CreateDocViewController.swift */; };
+		79782AB124C7AF5700E5DC36 /* ListDownloadedDocReqsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79782AB024C7AF5700E5DC36 /* ListDownloadedDocReqsViewController.swift */; };
 		7987253A248D4C2A00F82618 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79872539248D4C2A00F82618 /* AppDelegate.swift */; };
 		7987253C248D4C2A00F82618 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7987253B248D4C2A00F82618 /* SceneDelegate.swift */; };
 		7987253E248D4C2A00F82618 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7987253D248D4C2A00F82618 /* ViewController.swift */; };
@@ -34,7 +36,9 @@
 
 /* Begin PBXFileReference section */
 		6C9B2D216778CC1723B68B67 /* Pods-DocumentMarketplace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocumentMarketplace.debug.xcconfig"; path = "Target Support Files/Pods-DocumentMarketplace/Pods-DocumentMarketplace.debug.xcconfig"; sourceTree = "<group>"; };
+		790F54BD24C660C900EFF949 /* ListUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUsersViewController.swift; sourceTree = "<group>"; };
 		7934A93A24AAA66B0014D2F5 /* CreateDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDocViewController.swift; sourceTree = "<group>"; };
+		79782AB024C7AF5700E5DC36 /* ListDownloadedDocReqsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDownloadedDocReqsViewController.swift; sourceTree = "<group>"; };
 		79872536248D4C2A00F82618 /* DocumentMarketplace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DocumentMarketplace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79872539248D4C2A00F82618 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7987253B248D4C2A00F82618 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +129,8 @@
 				7994071124BA452000F356ED /* DownloadPDFViewController.swift */,
 				7994071324BA81AE00F356ED /* BuyPDFViewController.swift */,
 				798B942324BE5C1E006C1A03 /* CheckoutViewController.swift */,
+				790F54BD24C660C900EFF949 /* ListUsersViewController.swift */,
+				79782AB024C7AF5700E5DC36 /* ListDownloadedDocReqsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -294,11 +300,13 @@
 				7994071424BA81AE00F356ED /* BuyPDFViewController.swift in Sources */,
 				7987253A248D4C2A00F82618 /* AppDelegate.swift in Sources */,
 				79872555248D806600F82618 /* Utilities.swift in Sources */,
+				79782AB124C7AF5700E5DC36 /* ListDownloadedDocReqsViewController.swift in Sources */,
 				7987254E248D73B300F82618 /* SignUpViewController.swift in Sources */,
 				79872550248D73C500F82618 /* LoginViewController.swift in Sources */,
 				799CFD5824B7C8970018C23A /* CameraViewController.swift in Sources */,
 				7934A93B24AAA66B0014D2F5 /* CreateDocViewController.swift in Sources */,
 				7987255C248DC3D300F82618 /* Constants.swift in Sources */,
+				790F54BE24C660C900EFF949 /* ListUsersViewController.swift in Sources */,
 				799CFD5224B3D8C80018C23A /* ListDocsTableViewCell.swift in Sources */,
 				7987253C248D4C2A00F82618 /* SceneDelegate.swift in Sources */,
 				798B942424BE5C1E006C1A03 /* CheckoutViewController.swift in Sources */,

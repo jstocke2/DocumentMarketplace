@@ -18,6 +18,7 @@ class BuyPDFViewController: UIViewController {
     var fileName = String()
     var key = String()
     var document = PDFDocument()
+    var selectedUser:String = String()
 
     @IBOutlet weak var CancelButton: UIButton!
     @IBOutlet weak var BuyPDFButton: UIButton!
@@ -31,7 +32,7 @@ class BuyPDFViewController: UIViewController {
 
         // Create a storage reference from our storage service
         let storageRef = storage.reference()
-        let docRef = storageRef.child("DocumentRequests/" + key + "/" + fileName)
+        let docRef = storageRef.child(selectedUser + "/" + fileName)
 
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
         docRef.getData(maxSize: 15 * 1024 * 1024) { data, error in

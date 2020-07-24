@@ -161,7 +161,7 @@
                                         <rect key="frame" x="0.0" y="345.5" width="334" height="30"/>
                                         <state key="normal" title="Download PDF"/>
                                         <connections>
-                                            <segue destination="fyt-G4-u7q" kind="show" id="Jnh-2J-2Ou"/>
+                                            <segue destination="nEa-G0-Adh" kind="show" id="QXv-OB-Uzo"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -342,16 +342,87 @@
             </objects>
             <point key="canvasLocation" x="2869.5652173913045" y="-196.20535714285714"/>
         </scene>
-        <!--DownloadPDF View Controller-->
-        <scene sceneID="UUo-Ry-Mz0">
+        <!--List Downloaded Doc Reqs View Controller-->
+        <scene sceneID="74R-VN-uHx">
             <objects>
-                <viewController id="fyt-G4-u7q" customClass="DownloadPDFViewController" customModule="DocumentMarketplace" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4DX-Xg-6ZP">
+                <viewController id="nEa-G0-Adh" customClass="ListDownloadedDocReqsViewController" customModule="DocumentMarketplace" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VKY-rM-0pk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pB3-lR-cVW">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7ac-7Q-ztR">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PFK-MK-owx"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="PFK-MK-owx" firstAttribute="trailing" secondItem="7ac-7Q-ztR" secondAttribute="trailing" id="H0E-aA-AAD"/>
+                            <constraint firstItem="PFK-MK-owx" firstAttribute="bottom" secondItem="7ac-7Q-ztR" secondAttribute="bottom" id="Kbv-Uy-uIh"/>
+                            <constraint firstItem="7ac-7Q-ztR" firstAttribute="leading" secondItem="PFK-MK-owx" secondAttribute="leading" id="MGP-6Q-dBQ"/>
+                            <constraint firstItem="7ac-7Q-ztR" firstAttribute="top" secondItem="PFK-MK-owx" secondAttribute="top" id="tji-H1-Dll"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="738-DI-IMN"/>
+                    <connections>
+                        <outlet property="ListDocReqsTableView" destination="7ac-7Q-ztR" id="H3B-7O-e62"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lvm-5E-nVm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1470" y="1193"/>
+        </scene>
+        <!--List Users View Controller-->
+        <scene sceneID="myo-Pz-8mh">
+            <objects>
+                <viewController storyboardIdentifier="ListUsersViewController" id="BI6-TP-dYp" customClass="ListUsersViewController" customModule="DocumentMarketplace" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yEt-68-hAm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pt6-0y-mLP">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="ZPP-Jo-bHQ">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZPP-Jo-bHQ" id="nKz-Rz-QZW">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xkV-go-Xyt"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="xkV-go-Xyt" firstAttribute="trailing" secondItem="Pt6-0y-mLP" secondAttribute="trailing" id="BLD-8d-7We"/>
+                            <constraint firstItem="xkV-go-Xyt" firstAttribute="bottom" secondItem="Pt6-0y-mLP" secondAttribute="bottom" id="DCn-Lb-a3Q"/>
+                            <constraint firstItem="Pt6-0y-mLP" firstAttribute="top" secondItem="xkV-go-Xyt" secondAttribute="top" id="PEX-mk-lqM"/>
+                            <constraint firstItem="Pt6-0y-mLP" firstAttribute="leading" secondItem="xkV-go-Xyt" secondAttribute="leading" id="ovX-lD-Z6l"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="ListUsersTableView" destination="Pt6-0y-mLP" id="Cgq-mg-ImZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xnr-5D-Jfa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2142" y="1193"/>
+        </scene>
+        <!--DownloadPDF View Controller-->
+        <scene sceneID="UUo-Ry-Mz0">
+            <objects>
+                <viewController storyboardIdentifier="DownloadPDFViewController" id="fyt-G4-u7q" customClass="DownloadPDFViewController" customModule="DocumentMarketplace" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4DX-Xg-6ZP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pB3-lR-cVW">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="tdP-b7-N0b">
@@ -395,7 +466,7 @@
                                 <rect key="frame" x="0.0" y="686" width="414" height="176"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q3c-eo-Inl">
-                                        <rect key="frame" x="0.0" y="0.0" width="214" height="176"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="176"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="qXj-qm-bV7"/>
                                         </constraints>
@@ -406,7 +477,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3rp-Z4-cZB">
-                                        <rect key="frame" x="214" y="0.0" width="200" height="176"/>
+                                        <rect key="frame" x="200" y="0.0" width="214" height="176"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="j4j-rm-lCF"/>
                                         </constraints>
@@ -632,7 +703,7 @@
                                 <rect key="frame" x="0.0" y="761" width="374" height="135"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Are-1X-OY8">
-                                        <rect key="frame" x="0.0" y="0.0" width="174" height="135"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="135"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="UeC-f0-K4p"/>
                                             <constraint firstAttribute="height" constant="135" id="eBg-V6-OLA"/>
@@ -646,7 +717,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfs-Nr-I6P">
-                                        <rect key="frame" x="174" y="0.0" width="200" height="135"/>
+                                        <rect key="frame" x="200" y="0.0" width="174" height="135"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="M34-f0-ecZ"/>
                                         </constraints>
@@ -688,7 +759,7 @@
         <scene sceneID="CCi-fm-z1q">
             <objects>
                 <viewController storyboardIdentifier="ViewPDFVC" id="Obm-5j-Res" customClass="ViewPDFAfterSnapshotViewController" customModule="DocumentMarketplace" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="fmb-Tj-2IU">
+                    <view key="view" contentMode="scaleToFill" id="fmb-Tj-2IU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -717,7 +788,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icZ-uh-yxp">
-                                        <rect key="frame" x="133" y="0.0" width="108" height="135"/>
+                                        <rect key="frame" x="133" y="0.0" width="133" height="135"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="133" id="I1A-KL-b13"/>
                                         </constraints>
@@ -727,7 +798,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="olq-47-voR">
-                                        <rect key="frame" x="241" y="0.0" width="133" height="135"/>
+                                        <rect key="frame" x="266" y="0.0" width="108" height="135"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="133" id="S4t-7S-t2g"/>
                                         </constraints>

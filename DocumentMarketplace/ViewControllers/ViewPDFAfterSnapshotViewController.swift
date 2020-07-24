@@ -10,6 +10,7 @@ import UIKit
 import PDFKit
 import FirebaseStorage
 import FirebaseFirestore
+import FirebaseAuth
 
 class ViewPDFAfterSnapshotViewController: UIViewController {
     @IBOutlet weak var pdfView: PDFView!
@@ -70,9 +71,12 @@ class ViewPDFAfterSnapshotViewController: UIViewController {
         
         // File located on disk
         let pdfData = pdfDocument.dataRepresentation()
+        let user = Auth.auth().currentUser
         
         // Create a reference to the file you want to upload
-        let pdfRef = storageRef.child("DocumentRequests/" + selectedDocKey + "/" + uuid + ".pdf")
+        var pdfRefString:String = ("DocumentRequests/" + selectedDocKey + "/")
+        pdfRefString.append( user!.uid + "/" + uuid + ".pdf")
+        let pdfRef = storageRef.child(pdfRefString)
         // Upload the file to the path "images/rivers.jpg"
         let uploadTask = pdfRef.putData(pdfData!, metadata: nil) { (metadata, error) in
           guard let metadata = metadata else {

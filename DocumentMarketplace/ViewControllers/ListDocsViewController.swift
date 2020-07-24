@@ -86,6 +86,7 @@ class ListDocsViewController: UIViewController  {
                 else{
                     
                     self.numberofDocReq = snapshot?.documents.count ?? 0
+                    self.docReqs.removeAll(keepingCapacity: false)
                     for document in (snapshot?.documents)!{
                         var currentDocReq = docRequest()
                         self.docKeys.append(document.documentID)
@@ -126,7 +127,7 @@ class ListDocsViewController: UIViewController  {
                     self.ListCountiesTableView.endUpdates()
                 }
                 
-                db.collection("DocumentRequest")
+                
                 
             }
             
@@ -183,7 +184,8 @@ extension ListDocsViewController: UITableViewDataSource {
         
         customCell.configure(with: docReqs[indexPath.row].typeOfDocument, addressValue: docReqs[indexPath.row].address, nameValue: docReqs[indexPath.row].name, pageNumberValue: docReqs[indexPath.row].pageNumber, parcelValue: docReqs[indexPath.row].Parcel, volumeValue: docReqs[indexPath.row].Volume, descriptionValue: docReqs[indexPath.row].Description)
         
-        numberofDocReq = 0
+        //numberofDocReq = 0
+        
         
         return customCell
         
