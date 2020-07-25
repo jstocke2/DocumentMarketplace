@@ -20,7 +20,6 @@
 		79872550248D73C500F82618 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7987254F248D73C500F82618 /* LoginViewController.swift */; };
 		79872552248D73E400F82618 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79872551248D73E400F82618 /* HomeViewController.swift */; };
 		79872555248D806600F82618 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79872554248D806600F82618 /* Utilities.swift */; };
-		7987255A248D884A00F82618 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79872559248D884900F82618 /* GoogleService-Info.plist */; };
 		7987255C248DC3D300F82618 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7987255B248DC3D300F82618 /* Constants.swift */; };
 		7987255E248EE7C000F82618 /* iOSDropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7987255D248EE7C000F82618 /* iOSDropDown.framework */; };
 		79872560248EE81B00F82618 /* ListDocsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7987255F248EE81B00F82618 /* ListDocsViewController.swift */; };
@@ -31,6 +30,7 @@
 		799CFD5224B3D8C80018C23A /* ListDocsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799CFD5024B3D8C80018C23A /* ListDocsTableViewCell.swift */; };
 		799CFD5324B3D8C80018C23A /* ListDocsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 799CFD5124B3D8C80018C23A /* ListDocsTableViewCell.xib */; };
 		799CFD5824B7C8970018C23A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799CFD5724B7C8970018C23A /* CameraViewController.swift */; };
+		799DC10624CBE1BB00A29E8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 799DC10524CBE1BB00A29E8F /* GoogleService-Info.plist */; };
 		973EBEBBEB12A8A1AE6E7B4A /* Pods_DocumentMarketplace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4674B16C432488D53875F9 /* Pods_DocumentMarketplace.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +51,6 @@
 		7987254F248D73C500F82618 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		79872551248D73E400F82618 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		79872554248D806600F82618 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		79872559248D884900F82618 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7987255B248DC3D300F82618 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7987255D248EE7C000F82618 /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7987255F248EE81B00F82618 /* ListDocsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDocsViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		799CFD5024B3D8C80018C23A /* ListDocsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDocsTableViewCell.swift; sourceTree = "<group>"; };
 		799CFD5124B3D8C80018C23A /* ListDocsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListDocsTableViewCell.xib; sourceTree = "<group>"; };
 		799CFD5724B7C8970018C23A /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		799DC10524CBE1BB00A29E8F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "DocumentMarketplace/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CC8B9E7B4F620A5A413D86CB /* Pods-DocumentMarketplace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DocumentMarketplace.release.xcconfig"; path = "Target Support Files/Pods-DocumentMarketplace/Pods-DocumentMarketplace.release.xcconfig"; sourceTree = "<group>"; };
 		FC4674B16C432488D53875F9 /* Pods_DocumentMarketplace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DocumentMarketplace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -100,6 +100,7 @@
 		79872538248D4C2A00F82618 /* DocumentMarketplace */ = {
 			isa = PBXGroup;
 			children = (
+				799DC10524CBE1BB00A29E8F /* GoogleService-Info.plist */,
 				799CFD5424B6ADCD0018C23A /* Supporting Files */,
 				79F413FC24AFFAB900B04AF6 /* TableViews */,
 				79872556248D806D00F82618 /* Helpers */,
@@ -109,7 +110,6 @@
 				79872542248D4C2B00F82618 /* Assets.xcassets */,
 				79872544248D4C2B00F82618 /* LaunchScreen.storyboard */,
 				79872547248D4C2B00F82618 /* Info.plist */,
-				79872559248D884900F82618 /* GoogleService-Info.plist */,
 				79872553248D74D700F82618 /* ViewControllers */,
 			);
 			path = DocumentMarketplace;
@@ -240,7 +240,7 @@
 			files = (
 				79872546248D4C2B00F82618 /* LaunchScreen.storyboard in Resources */,
 				799CFD5324B3D8C80018C23A /* ListDocsTableViewCell.xib in Resources */,
-				7987255A248D884A00F82618 /* GoogleService-Info.plist in Resources */,
+				799DC10624CBE1BB00A29E8F /* GoogleService-Info.plist in Resources */,
 				79872543248D4C2B00F82618 /* Assets.xcassets in Resources */,
 				79872541248D4C2A00F82618 /* Main.storyboard in Resources */,
 			);
