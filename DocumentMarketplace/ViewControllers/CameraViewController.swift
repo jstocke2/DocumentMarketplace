@@ -10,7 +10,8 @@ import UIKit
 import AVFoundation
 
 class CameraViewController: UIViewController, UINavigationControllerDelegate  {
-
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var takePhotoButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
@@ -22,11 +23,22 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate  {
     var images = [UIImage]()
     var selectedDocKey:String?
     var convimages = [UIImage]()
+    var activityIndicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         takePhotoButton.backgroundColor = .blue
         cancelButton.backgroundColor = .gray
+        
+        activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        activityIndicator.color = .gray
+            activityIndicator.frame = CGRect(x: 0, y: 0, width: 46, height: 46)
+            activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
+        
+            view.addSubview(self.activityIndicator)
+        previewView.addSubview(self.activityIndicator)
+        
         
         
         
@@ -34,8 +46,29 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate  {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        //loadingIndicator.alpha = 0
+        //previewView.addSubview(loadingIndicator)
         startCamera()
         }
+    
+    func showActivityIndicatory(uiView: UIView) {
+        var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+        actInd.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        actInd.center = uiView.center
+        actInd.hidesWhenStopped = true
+        actInd.style =
+            UIActivityIndicatorView.Style.whiteLarge
+        uiView.addSubview(actInd)
+        actInd.startAnimating()
+    }
+    
+    func stopSession() {
+        if captureSession.isRunning {
+            DispatchQueue.global().async {
+                self.captureSession.stopRunning()
+            }
+        }
+    }
     
     func startCamera() {
             captureSession = AVCaptureSession()
@@ -73,6 +106,7 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate  {
 
     
     @IBAction func didTakePhoto(_ sender: Any) {
+
         let settings = AVCapturePhotoSettings()
                 let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
                 let previewFormat = [
@@ -81,6 +115,7 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate  {
                     kCVPixelBufferHeightKey as String: 160
                 ]
                 settings.previewPhotoFormat = previewFormat
+        
                 cameraOutput.capturePhoto(with: settings, delegate: self)
         if (images.count == 10){
             transistionToPDFView()
@@ -90,8 +125,13 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate  {
     func transistionToPDFView(){
         
         for image in images{
-            var convimage = image.resizedTo1MB()!
-            convimages.append(convimage)
+            //var convimage = image.resizedTo1MB()!
+            var convimage = image.jpeg(.medium)
+            guard var convUIimage = UIImage(data: convimage!) else {
+                print("Failed to convert image")
+                return }
+            //images.removeFirst()
+            convimages.append(convUIimage)
             
         }
         
@@ -111,6 +151,13 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate  {
     }
         
     @IBAction func cancelPressed(_ sender: Any) {
+        //loadingIndicator.alpha = 1
+        stopSession()
+        previewView.layer.removeFromSuperlayer()
+        previewView.layer.removeAllAnimations()
+        //loadingIndicator.startAnimating()
+        //showActivityIndicatory(uiView: previewView)
+        activityIndicator.startAnimating()
         
         transistionToPDFView()
     }
@@ -141,7 +188,21 @@ extension CameraViewController : AVCapturePhotoCaptureDelegate {
 }
 
 extension UIImage {
+    enum JPEGQuality: CGFloat {
+        case lowest  = 0
+        case low     = 0.25
+        case medium  = 0.5
+        case high    = 0.75
+        case highest = 1
+    }
 
+    /// Returns the data for the specified image in JPEG format.
+    /// If the image object’s underlying image data has been purged, calling this function forces that data to be reloaded into memory.
+    /// - returns: A data object containing the JPEG data, or nil if there was a problem generating the data. This function may return nil if the image has no data or if the underlying CGImageRef contains data in an unsupported bitmap format.
+    func jpeg(_ jpegQuality: JPEGQuality) -> Data? {
+        return jpegData(compressionQuality: jpegQuality.rawValue)
+    }
+    
 func resized(withPercentage percentage: CGFloat) -> UIImage? {
     let canvasSize = CGSize(width: size.width * percentage, height: size.height * percentage)
     UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)

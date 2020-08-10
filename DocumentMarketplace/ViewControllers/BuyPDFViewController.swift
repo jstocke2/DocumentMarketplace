@@ -41,7 +41,7 @@ class BuyPDFViewController: UIViewController {
           } else {
             // Data for "images/island.jpg" is returned
             guard var watermarkDocument = PDFDocument(data: data!)else{
-                print("Unable to Create PDF")
+                print("Unable to Create Watermarked PDF")
                 return
             }
             self.document = PDFDocument(data:data!)!

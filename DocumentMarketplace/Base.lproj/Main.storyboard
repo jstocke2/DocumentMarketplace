@@ -193,8 +193,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aew-Mc-W6H">
-                                <rect key="frame" x="40" y="40" width="334" height="390"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="aew-Mc-W6H">
+                                <rect key="frame" x="40" y="40" width="334" height="578"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type of Document" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hfk-ev-dgY">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="50"/>
@@ -205,7 +205,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B4M-pr-RtD">
-                                        <rect key="frame" x="0.0" y="50" width="334" height="50"/>
+                                        <rect key="frame" x="0.0" y="70" width="334" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="jSL-l1-yqs"/>
                                         </constraints>
@@ -213,7 +213,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Volume" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gty-Ks-7vL">
-                                        <rect key="frame" x="0.0" y="100" width="334" height="50"/>
+                                        <rect key="frame" x="0.0" y="140" width="334" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="j1q-qv-f3q"/>
                                         </constraints>
@@ -221,7 +221,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Page Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YDy-fc-JQy">
-                                        <rect key="frame" x="0.0" y="150" width="334" height="50"/>
+                                        <rect key="frame" x="0.0" y="210" width="334" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="3em-oy-GoT"/>
                                         </constraints>
@@ -229,7 +229,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Parcel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gne-zI-yIZ">
-                                        <rect key="frame" x="0.0" y="200" width="334" height="50"/>
+                                        <rect key="frame" x="0.0" y="280" width="334" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="7FV-a3-LuS"/>
                                         </constraints>
@@ -237,12 +237,12 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sjB-fR-fG0">
-                                        <rect key="frame" x="0.0" y="250" width="334" height="20"/>
+                                        <rect key="frame" x="0.0" y="350" width="334" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K47-1o-v4r">
-                                        <rect key="frame" x="0.0" y="270" width="334" height="50"/>
+                                        <rect key="frame" x="0.0" y="404" width="334" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="wnj-S7-Uag"/>
                                         </constraints>
@@ -250,19 +250,19 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pUO-W0-oWQ" customClass="DropDown" customModule="iOSDropDown">
-                                        <rect key="frame" x="0.0" y="320" width="334" height="20"/>
+                                        <rect key="frame" x="0.0" y="474" width="334" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAk-bg-2Z3">
-                                        <rect key="frame" x="0.0" y="340" width="334" height="30"/>
+                                        <rect key="frame" x="0.0" y="528" width="334" height="30"/>
                                         <state key="normal" title="Submit Document Request"/>
                                         <connections>
                                             <action selector="SubmitButtonTapped:" destination="fte-81-XWF" eventType="touchUpInside" id="A5a-Cb-LXc"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iw8-mu-aX3">
-                                        <rect key="frame" x="0.0" y="370" width="334" height="20"/>
+                                        <rect key="frame" x="0.0" y="578" width="334" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="systemRedColor"/>
                                         <nil key="highlightedColor"/>
@@ -693,6 +693,12 @@
                         <subviews>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SZB-v6-gHS">
                                 <rect key="frame" x="0.0" y="44" width="384" height="675"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="HO9-nT-dls">
+                                        <rect key="frame" x="142" y="266" width="100" height="73"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="384" id="4Bc-f9-M4Y"/>
@@ -703,7 +709,7 @@
                                 <rect key="frame" x="0.0" y="761" width="374" height="135"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Are-1X-OY8">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="135"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="174" height="135"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="UeC-f0-K4p"/>
                                             <constraint firstAttribute="height" constant="135" id="eBg-V6-OLA"/>
@@ -717,7 +723,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfs-Nr-I6P">
-                                        <rect key="frame" x="200" y="0.0" width="174" height="135"/>
+                                        <rect key="frame" x="174" y="0.0" width="200" height="135"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="M34-f0-ecZ"/>
                                         </constraints>
@@ -739,7 +745,6 @@
                         <viewLayoutGuide key="safeArea" id="KNt-0I-RbD"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="WaK-b5-u8a" secondAttribute="trailing" id="Rhh-1t-Jhz"/>
                             <constraint firstAttribute="bottom" secondItem="WaK-b5-u8a" secondAttribute="bottom" id="dv2-Pt-aYq"/>
                             <constraint firstItem="WaK-b5-u8a" firstAttribute="leading" secondItem="KNt-0I-RbD" secondAttribute="leading" id="eN8-pm-3tX"/>
                             <constraint firstItem="SZB-v6-gHS" firstAttribute="leading" secondItem="KNt-0I-RbD" secondAttribute="leading" id="tSA-0D-Wjr"/>
@@ -747,6 +752,7 @@
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="mfs-Nr-I6P" id="7Vg-z4-spc"/>
+                        <outlet property="loadingIndicator" destination="HO9-nT-dls" id="OBc-HM-iRB"/>
                         <outlet property="previewView" destination="SZB-v6-gHS" id="Xt6-Zt-Ra7"/>
                         <outlet property="takePhotoButton" destination="Are-1X-OY8" id="zsi-NW-aV7"/>
                     </connections>
@@ -782,7 +788,10 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="133" id="F1K-GZ-uG2"/>
                                         </constraints>
-                                        <state key="normal" title="Confirm Upload all Files Uploaded"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="All Files Uploaded">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
                                         <connections>
                                             <action selector="confirmUploadButtonTapped:" destination="Obm-5j-Res" eventType="touchUpInside" id="8f1-eV-jTT"/>
                                         </connections>
@@ -792,7 +801,10 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="133" id="I1A-KL-b13"/>
                                         </constraints>
-                                        <state key="normal" title="Cancel Upload"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Cancel Upload">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
                                         <connections>
                                             <action selector="cancelUploadButtonTapped:" destination="Obm-5j-Res" eventType="touchUpInside" id="nNT-Yk-SnG"/>
                                         </connections>
@@ -802,7 +814,10 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="133" id="S4t-7S-t2g"/>
                                         </constraints>
-                                        <state key="normal" title="Confirm Upload go back to Camera to make more PDFs"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Upload more PDFs">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
                                         <connections>
                                             <action selector="confirmButtonCameraTapped:" destination="Obm-5j-Res" eventType="touchUpInside" id="Scp-S5-deO"/>
                                         </connections>
@@ -817,7 +832,6 @@
                         <viewLayoutGuide key="safeArea" id="8FU-1a-nJU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="rPr-ZF-CfQ" secondAttribute="trailing" id="3tX-Aa-dqy"/>
                             <constraint firstItem="8FU-1a-nJU" firstAttribute="bottom" secondItem="rPr-ZF-CfQ" secondAttribute="bottom" id="dHR-FZ-ISf"/>
                             <constraint firstItem="rPr-ZF-CfQ" firstAttribute="leading" secondItem="8FU-1a-nJU" secondAttribute="leading" id="nCu-GM-NvB"/>
                         </constraints>
@@ -840,6 +854,9 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
