@@ -65,7 +65,7 @@ class SignUpViewController: UIViewController {
         }
         
         // check password is secure
-        let cleanedPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let cleanedPassword = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
         if Utilities.isPasswordValid(cleanedPassword) == false {
             return "Please make sure your password is 8 characters, contains a special character, and a number."
@@ -79,34 +79,32 @@ class SignUpViewController: UIViewController {
     @IBAction func signUpButtonTapped(_ sender: Any) {
         let error = validateFields()
         
-        if error != nil{
-            showError(message: error!)
-            
-        }
-        else{
+        if let error = error {
+            showError(message: error)
+        } else {
             // create cleaned version of data
-            let firstname = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let lastname = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let firstname = firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let lastname = lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             
             Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
             
             
-            if err != nil{
-                self.showError(message: "Error Creating User")
-                
-            }
-            else{
+            if let err = err {
+                self.showError(message: err.localizedDescription)
+            } else if let user = result?.user {
                 let db = Firestore.firestore()
-                db.collection("users").addDocument(data: ["firstname" : firstname, "lastname":lastname, "uid":result!.user.uid]){ (error) in
-                        if error != nil {
-                        self.showError(message: "Error saving user data.")
-                        }
+                db.collection("users").addDocument(data: ["firstname" : firstname, "lastname":lastname, "uid":user.uid]) { error in
+                    if let error = error {
+                        self.showError(message: "Error saving user data: \(error.localizedDescription)")
+                        return
                     }
-                
-                self.transistionToHome()
+                    self.transistionToHome()
                 }
+            } else {
+                self.showError(message: "The account was created, but no user record was returned.")
+            }
         }
         
     }
