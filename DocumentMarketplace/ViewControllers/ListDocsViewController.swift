@@ -60,38 +60,34 @@ class ListDocsViewController: UIViewController  {
         
         // retrieve the counties and listen for changes
         
-        db.collection("Counties").getDocuments() { (querySnapshot, err) in
-        if let err = err {
-            print("Error getting documents: \(err)")
-        } else {
-            for document in querySnapshot!.documents {
-                
-                let county = document.get("County") as! String
-                let state  = document.get("State")  as! String
-                let countyState = county + ", " + state
-                
-                self.ListCountiesDropdown.optionArray.append(countyState)
-                }
+        db.collection("Counties").getDocuments { [weak self] querySnapshot, error in
+            if let error = error {
+                print("Error getting counties: \(error.localizedDescription)")
+                return
             }
+
+            self?.ListCountiesDropdown.optionArray = querySnapshot?.documents.compactMap { document in
+                guard let county = document.get("County") as? String,
+                      let state = document.get("State") as? String else { return nil }
+                return "\(county), \(state)"
+            } ?? []
         }
         
         ListCountiesDropdown.didSelect { (selectedCountyandState, index, id) in
             
-            var selectedCountyArray = selectedCountyandState.split(separator: ",")
-            var selectedCounty = selectedCountyArray[0]
-            db.collection("DocumentRequest").whereField("County", isEqualTo: selectedCounty).getDocuments{(snapshot, error) in
-                if error != nil{
-                    print(error)
-                }
-                else{
-                    
-                    self.numberofDocReq = snapshot?.documents.count ?? 0
+            let selectedCountyArray = selectedCountyandState.split(separator: ",", maxSplits: 1)
+            guard let selectedCounty = selectedCountyArray.first.map(String.init) else { return }
+            db.collection("DocumentRequest").whereField("County", isEqualTo: selectedCounty).getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error getting document requests: \(error.localizedDescription)")
+                } else {
                     self.docReqs.removeAll(keepingCapacity: false)
-                    for document in (snapshot?.documents)!{
+                    self.docKeys.removeAll(keepingCapacity: false)
+                    for document in snapshot?.documents ?? [] {
                         var currentDocReq = docRequest()
                         self.docKeys.append(document.documentID)
                         
-                        if let documentType = document.data()["typeofDocument"] as? String{
+                        if let documentType = (document.data()["TypeofDocument"] ?? document.data()["typeofDocument"]) as? String {
                             print(documentType)
                             currentDocReq.typeOfDocument = documentType
                         }
@@ -124,7 +120,6 @@ class ListDocsViewController: UIViewController  {
                         
                     }
                     self.ListCountiesTableView.reloadData()
-                    self.ListCountiesTableView.endUpdates()
                 }
                 
                 
@@ -154,18 +149,14 @@ class ListDocsViewController: UIViewController  {
 
 extension ListDocsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard docKeys.indices.contains(indexPath.row),
+              let vc = storyboard?.instantiateViewController(identifier: "CameraViewController") as? CameraViewController else {
+            return
+        }
         selectedDocKey = docKeys[indexPath.row]
-        let vc = storyboard?.instantiateViewController(identifier: "CameraViewController") as?
-            CameraViewController
-        vc?.selectedDocKey = selectedDocKey
-        
-        
-        navigationController?.pushViewController(vc!, animated: true)
+        vc.selectedDocKey = selectedDocKey
+        navigationController?.pushViewController(vc, animated: true)
         print(selectedDocKey)
-        
-        self.view.window?.rootViewController = vc
-        self.view.window?.makeKeyAndVisible()
-        //transistionToCamera()
     }
 }
 
@@ -176,7 +167,7 @@ extension ListDocsViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberofDocReq
+        return docReqs.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -188,10 +179,6 @@ extension ListDocsViewController: UITableViewDataSource {
         
         
         return customCell
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCounties", for: indexPath)
-        cell.textLabel?.text = "Hello World"
-        return cell
     }
 }
 

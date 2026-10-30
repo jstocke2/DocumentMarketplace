@@ -51,14 +51,20 @@ class LoginViewController: UIViewController {
         // validate text fields
         
         // cleanse data
-        let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+
+        guard !email.isEmpty, !password.isEmpty else {
+            ErrorLabel.text = "Enter your email address and password."
+            ErrorLabel.alpha = 1
+            return
+        }
         
         
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             
-            if error != nil{
-                self.ErrorLabel.text = error!.localizedDescription
+            if let error = error {
+                self.ErrorLabel.text = error.localizedDescription
                 self.ErrorLabel.alpha = 1
             }
             else{

@@ -27,8 +27,6 @@ class ListUsersViewController: UIViewController {
         ListUsersTableView.dataSource = self
         ListUsersTableView.delegate = self
         
-        let user = Auth.auth().currentUser
-        let db = Firestore.firestore()
         let storage = Storage.storage()
                 
                 
@@ -37,24 +35,21 @@ class ListUsersViewController: UIViewController {
                 
                 let storageReference = storage.reference().child("DocumentRequests/" + selectedDocKey + "/")
                     
-                    storageReference.listAll { (result, error) in
+                    storageReference.listAll { [weak self] result, error in
                       if let error = error {
-                        print(error)
+                        print("Unable to list users: \(error.localizedDescription)")
+                        return
                       }
+                      guard let self = self, let result = result else { return }
+                      self.users.removeAll(keepingCapacity: true)
                       for prefix in result.prefixes {
                         // The prefixes under storageReference.
                         // You may call listAll(completion:) recursively on them.
                         print("prefix is " + prefix.fullPath)
-                        self.totalUsers = result.prefixes.count
                         self.users.append(prefix.fullPath)
                       }
-                      for item in result.items {
-                        // The items under storageReference.
-                        self.totalUsers =  result.items.count
-                        print("User is:  " + item.name)
-                      }
+                      self.totalUsers = self.users.count
                         self.ListUsersTableView.reloadData()
-                        self.ListUsersTableView.endUpdates()
                 
                 }
             
@@ -65,16 +60,13 @@ class ListUsersViewController: UIViewController {
 
 extension ListUsersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard users.indices.contains(indexPath.row),
+              let vc = storyboard?.instantiateViewController(identifier: "DownloadPDFViewController") as? DownloadPDFViewController else {
+            return
+        }
         selectedUser = users[indexPath.row]
-        let vc = storyboard?.instantiateViewController(identifier: "DownloadPDFViewController") as?
-            DownloadPDFViewController
-        vc?.selectedUser = selectedUser
-        
-        
-        navigationController?.pushViewController(vc!, animated: true)
-        
-        self.view.window?.rootViewController = vc
-        self.view.window?.makeKeyAndVisible()
+        vc.selectedUser = selectedUser
+        navigationController?.pushViewController(vc, animated: true)
         
     }
 }
@@ -88,8 +80,7 @@ extension ListUsersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "User" + String(counter)
-        counter+=1
+        cell.textLabel?.text = users[indexPath.row].split(separator: "/").last.map(String.init) ?? users[indexPath.row]
         return cell
     }
 }
