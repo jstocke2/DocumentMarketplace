@@ -39,25 +39,23 @@ class CreateDocViewController: UIViewController {
         
             // retrieve the counties and listen for changes
             
-            db.collection("Counties").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    
-                    let county = document.get("County") as! String
-                    let state  = document.get("State")  as! String
-                    let countyState = county + ", " + state
-                    
-                    self.ListCountiesDropdown.optionArray.append(countyState)
-                    }
+        db.collection("Counties").getDocuments { [weak self] querySnapshot, error in
+            if let error = error {
+                self?.showError(message: "Unable to load counties: \(error.localizedDescription)")
+                return
                 }
+
+            self?.ListCountiesDropdown.optionArray = querySnapshot?.documents.compactMap { document in
+                guard let county = document.get("County") as? String,
+                      let state = document.get("State") as? String else { return nil }
+                return "\(county), \(state)"
+            } ?? []
             }
         
         ListCountiesDropdown.didSelect { (selectedCountyandState, index, id) in
             
-            let selectedCountyArray = selectedCountyandState.split(separator: ",")
-            self.selectedCounty = String(selectedCountyArray[0])
+            let selectedCountyArray = selectedCountyandState.split(separator: ",", maxSplits: 1)
+            self.selectedCounty = selectedCountyArray.first.map(String.init) ?? ""
             
         }
     }
@@ -91,33 +89,34 @@ class CreateDocViewController: UIViewController {
     @IBAction func SubmitButtonTapped(_ sender: Any) {
         let error = validateFields()
         
-        if error != nil{
-            showError(message: error!)
-            
-        }
-        
-        else{
+        if let error = error {
+            showError(message: error)
+        } else {
             // create cleaned version of data
-            let typeofDocument = TypeofDocumentText.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let name = NameText.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let volume = VolumeText.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let pageNumber = PageNumberText.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let parcel = ParcelText.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let address = AddressText.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let typeofDocument = TypeofDocumentText.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let name = NameText.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let volume = VolumeText.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let pageNumber = PageNumberText.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let parcel = ParcelText.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let address = AddressText.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let description = Description.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             
             
-            let user = Auth.auth().currentUser
+            guard let user = Auth.auth().currentUser else {
+                showError(message: "You must be signed in to create a document request.")
+                return
+            }
             
             let db = Firestore.firestore()
             
-            db.collection("DocumentRequest").addDocument(data: ["TypeofDocument": typeofDocument, "name":name, "uid":user?.uid, "volume":volume,
-                                                                "pagenumber":pageNumber, "parcel":parcel, "description": Description.text, "address":address, "County": selectedCounty, "pdfUploaded": "No"]){ (error) in
-                    if error != nil {
-                        self.showError(message: "Error saving Document Request.")
-                    }
+            db.collection("DocumentRequest").addDocument(data: ["TypeofDocument": typeofDocument, "name":name, "uid":user.uid, "volume":volume,
+                                                                "pagenumber":pageNumber, "parcel":parcel, "description": description, "address":address, "County": selectedCounty, "pdfUploaded": "No"]) { error in
+                if let error = error {
+                    self.showError(message: "Error saving document request: \(error.localizedDescription)")
+                    return
                 }
-            
-            transistionToHome()
+                self.transistionToHome()
+            }
         
         }
     }
