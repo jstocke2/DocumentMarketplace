@@ -32,6 +32,8 @@ class CheckoutViewController: UIViewController, STPAuthenticationContext {
             button.backgroundColor = .systemBlue
             button.titleLabel?.font = UIFont.systemFont(ofSize: 22)
             button.setTitle("Pay", for: .normal)
+            button.isEnabled = false
+            button.alpha = 0.5
             button.addTarget(self, action: #selector(pay), for: .touchUpInside)
             return button
         }()
@@ -67,7 +69,7 @@ class CheckoutViewController: UIViewController, STPAuthenticationContext {
 
                     // Submit the payment
                     let paymentHandler = STPPaymentHandler.shared()
-                    paymentHandler.confirmPayment(withParams: paymentIntentParams, authenticationContext: self) { (status, paymentIntent, error) in
+                    paymentHandler.confirmPayment(paymentIntentParams, with: self) { status, paymentIntent, error in
                         switch (status) {
                         case .failed:
                             self.displayAlert(title: "Payment failed", message: error?.localizedDescription ?? "")
@@ -79,8 +81,7 @@ class CheckoutViewController: UIViewController, STPAuthenticationContext {
                             self.displayAlert(title: "Payment succeeded", message: paymentIntent?.description ?? "", restartDemo: true)
                             break
                         @unknown default:
-                            fatalError()
-                            break
+                            self.displayAlert(title: "Payment unavailable", message: "Stripe returned an unsupported payment status.")
                         }
                     }
                 }
@@ -102,21 +103,36 @@ class CheckoutViewController: UIViewController, STPAuthenticationContext {
     
     func startCheckout() {
         let arguments = ["amount": 100,"currency": "usd","payment_method":"card"] as [String : Any]
-        functions.httpsCallable("createStripePayment").call(arguments) { (result, error) in
+        payButton.isEnabled = false
+        payButton.alpha = 0.5
+
+        functions.httpsCallable("createStripePayment").call(arguments) { [weak self] result, error in
+          guard let self = self else { return }
           if let error = error as NSError? {
+            var message = error.localizedDescription
             if error.domain == FunctionsErrorDomain {
-              let code = FunctionsErrorCode(rawValue: error.code)
-                let message = error.localizedDescription
-              let details = error.userInfo[FunctionsErrorDetailsKey] as! String
-                print("Error " + message + details)
+              _ = FunctionsErrorCode(rawValue: error.code)
+              if let details = error.userInfo[FunctionsErrorDetailsKey] as? String {
+                message += "\n\(details)"
+              }
             }
-            // ...
+            self.displayAlert(title: "Unable to start checkout", message: message)
+            return
           }
-          //if let text = (result?.data as? [String: Any])?["text"] as? String {
-            //self.resultField.text = text
-            //print("API Call came back with " + text)
+
+          guard let data = result?.data as? [String: Any],
+                let clientSecret = data["clientSecret"] as? String,
+                !clientSecret.isEmpty else {
+            self.displayAlert(title: "Unable to start checkout", message: "The server did not return a payment intent.")
+            return
           }
+
+          self.paymentIntentClientSecret = clientSecret
+          self.payButton.isEnabled = true
+          self.payButton.alpha = 1
         }
+}
+
 }
 
 
