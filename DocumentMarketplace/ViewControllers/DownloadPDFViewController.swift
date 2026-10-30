@@ -14,7 +14,7 @@ import FirebaseFirestore
 class DownloadPDFViewController: UIViewController {
 
     @IBOutlet weak var DownloadPDFTableView: UITableView!
-    var documentRequestKeys = [String()]
+    var documentRequestKeys = [String]()
     var fileNames = [String]()
     var filestoReqdict = [String:String]()
     var selectedUser:String = String()
@@ -22,13 +22,8 @@ class DownloadPDFViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        documentRequestKeys.remove(at: 0)
-        
         DownloadPDFTableView.dataSource = self
         DownloadPDFTableView.delegate = self
-        
-        let db = Firestore.firestore()
-        let user = Auth.auth().currentUser
         
         let storage = Storage.storage()
                 
@@ -39,23 +34,14 @@ class DownloadPDFViewController: UIViewController {
                 let storageReference = storage.reference().child(selectedUser)
                     //print("Key is:  " + key)
                     
-                    storageReference.listAll { (result, error) in
+                    storageReference.listAll { [weak self] result, error in
                       if let error = error {
-                        print(error)
+                        print("Unable to list documents: \(error.localizedDescription)")
+                        return
                       }
-                      for prefix in result.prefixes {
-                        // The prefixes under storageReference.
-                        // You may call listAll(completion:) recursively on them.
-                      }
-                      for item in result.items {
-                        // The items under storageReference.
-                        //self.difference = result.items.count - documents
-                        self.fileNames.append(item.name)
-                        print("DocName is:  " + item.name)
-                      }
-                        
-                        self.DownloadPDFTableView.reloadData()
-                        self.DownloadPDFTableView.endUpdates()
+                      guard let self = self, let result = result else { return }
+                      self.fileNames = result.items.map(\.name)
+                      self.DownloadPDFTableView.reloadData()
                 }
         
 
@@ -77,17 +63,16 @@ class DownloadPDFViewController: UIViewController {
 
 extension DownloadPDFViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = self.storyboard?.instantiateViewController(identifier: "BuyPDFVC") as?
-        BuyPDFViewController
+        guard fileNames.indices.contains(indexPath.row),
+              let vc = self.storyboard?.instantiateViewController(identifier: "BuyPDFVC") as? BuyPDFViewController else {
+            return
+        }
         //var count = indexPath.row - difference
         //vc?.key = documentRequestKeys[count]
         //vc?.key = filestoReqdict[fileNames[indexPath.row]]!
-        vc?.fileName = fileNames[indexPath.row]
-        vc?.selectedUser = selectedUser
-        navigationController?.pushViewController(vc!, animated: true)
-        
-        self.view.window?.rootViewController = vc
-        self.view.window?.makeKeyAndVisible()
+        vc.fileName = fileNames[indexPath.row]
+        vc.selectedUser = selectedUser
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -100,8 +85,7 @@ extension DownloadPDFViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Document" + String(counter)
-        counter+=1
+        cell.textLabel?.text = fileNames[indexPath.row]
         return cell
     }
 }
