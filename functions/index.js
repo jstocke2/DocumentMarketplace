@@ -59,38 +59,49 @@ exports.addPaymentMethodDetails = functions.firestore
 
 
 
-exports.createStripePayment = functions.firestore
-  .document('stripe_customers/{userId}/payments/{pushId}')
-  .onCreate(async (snap, context) => {
-    const { amount, currency, payment_method } = snap.data();
-    try {
-      // Look up the Stripe customer id.
-      const customer = (await snap.ref.parent.parent.get()).data().customer_id;
-      // Create a charge using the pushId as the idempotency key
-      // to protect against double charges.
-      const idempotencyKey = context.params.pushId;
-      const payment = await stripe.paymentIntents.create(
-        {
-          amount,
-          currency,
-          customer,
-          payment_method,
-          off_session: false,
-          confirm: true,
-          confirmation_method: 'manual',
-        },
-        { idempotencyKey }
-      );
-      // If the result is successful, write it back to the database.
-      await snap.ref.set(payment);
-    } catch (error) {
-      // We want to capture errors and render them in a user-friendly way, while
-      // still logging an exception with StackDriver
-      console.log(error);
-      await snap.ref.set({ error: userFacingMessage(error) }, { merge: true });
-      await reportError(error, { user: context.params.userId });
-    }
-  });
+exports.createStripePayment = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError(
+      'unauthenticated',
+      'You must be signed in to start a payment.'
+    );
+  }
+
+  const amount = Number(data.amount);
+  const currency = data.currency === 'usd' ? 'usd' : null;
+  if (!Number.isInteger(amount) || amount < 50 || amount > 100000 || !currency) {
+    throw new functions.https.HttpsError(
+      'invalid-argument',
+      'The payment amount or currency is invalid.'
+    );
+  }
+
+  try {
+    const customerSnapshot = await admin.firestore()
+      .collection('stripe_customers')
+      .doc(context.auth.uid)
+      .get();
+    const customerId = customerSnapshot.exists
+      ? customerSnapshot.data().customer_id
+      : undefined;
+
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency,
+      customer: customerId,
+      payment_method_types: ['card'],
+    });
+
+    return { clientSecret: payment.client_secret };
+  } catch (error) {
+    console.error(error);
+    await reportError(error, { user: context.auth.uid });
+    throw new functions.https.HttpsError(
+      'internal',
+      userFacingMessage(error)
+    );
+  }
+});
 
 // [END chargecustomer]
 
